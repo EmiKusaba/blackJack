@@ -1,11 +1,10 @@
 //card
-class card {
+class Card {
   constructor(suit, number) {
     this.suit = suit
     this.number = number
   }
 }
-
 //user
 class User {
   constructor(name) {
@@ -30,25 +29,20 @@ class Game {
       }
     }
   }
-  //shuffle
-  suffle() {
+  suffle(user){
     const getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
     }
     let deck = []
-    for (let i = 0; i < this.deck.length; i++) {
-      const index = getRandomInt(this.deck.length)
+    for(let i = 0; i < this.deck.length; i ++){
+      let index =  getRandomInt(this.deck.length)
       let card = this.deck[index]
     }
   }
-
-  //deal
-  deal(user) {
+  deal(){
 
   }
-
-  //play
-  play() {
+  play(){
 
   }
 }
