@@ -30,12 +30,14 @@ class Game {
       }
     }
   }
-  //suffle
-  suffle() {
+  //shuffle
+  shuffle() {
     const getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
     }
-    
+    let deck = []
+    let index = getRandomInt(this.deck.length)
+    let card = this.deck[index]
   }
 
 
