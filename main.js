@@ -15,6 +15,18 @@ class Card {
   name() {
     return `${this.number} of ${this.suit}`
   }
+
+  score(aceIs10) {
+    if (this.number === "Ace") {
+      return aceIs10 ? 10 : 1
+    }
+
+    if (this.number === "J" || this.number === "Q" || this.number === "K") {
+      return 10
+    }
+
+    return Number(this.number)
+  }
 }
 
 //user class
@@ -22,6 +34,14 @@ class User {
   constructor(name) {
     this.name = name
     this.cards = []
+  }
+
+  score() {
+    let sum = 0
+    for (let i = 0; i < this.cards.length; i++) {
+      sum += this.cards[i].score(true)
+    }
+    return sum
   }
 }
 
@@ -65,8 +85,9 @@ class Game {
     user.cards.push(card)
   }
 
-  play() {
+  async play() {
     this.shuffle()
+
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < this.users.length; j++) {
         this.deal(this.users[j])
@@ -75,28 +96,59 @@ class Game {
 
     this.display()
 
-    for(let i = 0; i < this.users.length; i++) {
-      this.choice(this.users[i])
+    for (let i = 0; i < this.users.length; i++) {
+      await this.choice(this.users[i])
     }
 
     this.display()
+
+    this.win()
   }
 
   choice(user) {
-    rl.question(`User ${user.name} hit? [y/n]`, (ans) => {
-      if ("y" === ans) {
-        this.deal(user)
-      }
+    return new Promise((resolve) => {
+      rl.question(`User ${user.name} hit? [y/n]\n`, (ans) => {
+        if ("y" === ans) {
+          this.deal(user)
+        }
+        resolve()
+      })
     })
   }
 
+  win() {
+    let scores = []
+
+    for(let i = 0; i < this.users.length; i++) {
+      let user = this.users[i]
+      let score = user.score()
+      if(score > 21) {
+        score = 0
+      }
+      scores.push([score, user])
+    }
+
+    scores.sort((a, b) => {
+      return b[0] - a[0]
+    })
+
+    const winner = scores[0][1]
+    console.log(`User ${winner.name} wins!`)
+  }
+
   display() {
+    console.log()
+
     for (let i = 0; i < this.users.length; i++) {
       let user = this.users[i]
       console.log(`User ${user.name}'s cards:`)
       for (let j = 0; j < user.cards.length; j++) {
         console.log(user.cards[j].name())
       }
+
+      console.log(`score: ${user.score()}`)
+
+      console.log()
     }
   }
 }
