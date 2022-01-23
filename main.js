@@ -16,9 +16,9 @@ class Card {
     return `${this.number} of ${this.suit}`
   }
 
-  score(aceIs10) {
+  score(aceIs11) {
     if (this.number === "Ace") {
-      return aceIs10 ? 10 : 1
+      return aceIs11 ? 11 : 1
     }
 
     if (this.number === "J" || this.number === "Q" || this.number === "K") {
@@ -37,11 +37,38 @@ class User {
   }
 
   score() {
-    let sum = 0
+    let sums = [0]
+
     for (let i = 0; i < this.cards.length; i++) {
-      sum += this.cards[i].score(true)
+      const card = this.cards[i]
+
+      if(card.number === "Ace") {
+        sums = sums.concat(sums)
+        for(let j = 0; j < sums.length; j++) {
+          if(j < sums.length / 2) {
+            sums[j] += card.score(false)
+          } else {
+            sums[j] += card.score(true)
+          }
+        }
+      } else {
+        for(let j = 0; j < sums.length; j++) {
+          sums[j] += card.score()
+        }
+      }
     }
-    return sum
+
+    for(let i = 0; i < sums.length; i++) {
+      if(sums[i] > 21) {
+        sums[i] = 0
+      }
+    }
+
+    sums.sort((a, b) => {
+      return b - a
+    })
+
+    return sums[0]
   }
 }
 
