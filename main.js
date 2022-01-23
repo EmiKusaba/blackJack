@@ -42,29 +42,29 @@ class User {
     for (let i = 0; i < this.cards.length; i++) {
       const card = this.cards[i]
 
-      if(card.number === "Ace") {
+      if (card.number === "Ace") {
         sums = sums.concat(sums)
-        for(let j = 0; j < sums.length; j++) {
-          if(j < sums.length / 2) {
+        for (let j = 0; j < sums.length; j++) {
+          if (j < sums.length / 2) {
             sums[j] += card.score(false)
           } else {
             sums[j] += card.score(true)
           }
         }
       } else {
-        for(let j = 0; j < sums.length; j++) {
+        for (let j = 0; j < sums.length; j++) {
           sums[j] += card.score()
         }
       }
     }
 
-    for(let i = 0; i < sums.length; i++) {
-      if(sums[i] > 21) {
-        sums[i] = 0
-      }
-    }
-
     sums.sort((a, b) => {
+      if (a > 21) {
+        return 1
+      } else if (b > 21) {
+        return -1
+      }
+
       return b - a
     })
 
@@ -146,21 +146,29 @@ class Game {
   win() {
     let scores = []
 
-    for(let i = 0; i < this.users.length; i++) {
+    for (let i = 0; i < this.users.length; i++) {
       let user = this.users[i]
       let score = user.score()
-      if(score > 21) {
-        score = 0
-      }
       scores.push([score, user])
     }
 
     scores.sort((a, b) => {
+      if (a[0] > 21) {
+        return 1
+      } else if (b[0] > 21) {
+        return -1
+      }
       return b[0] - a[0]
     })
 
-    const winner = scores[0][1]
-    console.log(`User ${winner.name} wins!`)
+    for (let i = 0; i < scores.length; i++) {
+      const score = scores[i][0]
+      const user = scores[i][1]
+      if (score !== scores[0][0]) {
+        break
+      }
+      console.log(`User ${user.name} wins!`)
+    }
   }
 
   display() {
