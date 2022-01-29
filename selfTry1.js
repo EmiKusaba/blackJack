@@ -26,9 +26,35 @@ class Card {
 
 //user class
 class User {
-  contructor(name) {
+  constructor(name) {
     this.name = name
-    this.number = []
+    this.cards = []
   }
 
+  score() {
+
+  }
+
+}
+
+//game class
+class Game {
+  constructor() {
+    this.deck = []
+    this.users = []
+
+    
+  }
+
+
+  shuffle() {
+
+  }
+
+  display(){
+
+  }
+  play() {
+
+  }
 }
