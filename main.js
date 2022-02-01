@@ -86,7 +86,7 @@ class Game {
     for (let i = 0; i < suits.length; i++) {
       const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
       for (let j = 0; j < numbers.length; j++) {
-        this.deck.push(new Card(suits[i], numbers[j]))
+        this.deck.push(new Card(suits[i], numbers[i]))
       }
     }
   }
