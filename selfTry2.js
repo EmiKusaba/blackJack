@@ -59,12 +59,30 @@ class Game {
     }
   }
   shuffle() {
-    
+    let getRandomInt = (max) => {
+      return Math.floor(Math.random() * max);
+    }
+    let deck = []
+    let len = this.desk.length
+    for(let i = 0; i < len ; i++){
+      let index = getRandomInt(this.deck.length)
+      let card = this.deck[index]
+      deck.push(card)
+    }
+    this.deck = deck
   }
   deal(user) {
-
+    let card = this.deck.pop()
+    user.cards.push(card)
   }
   play() {
+    this.shuffle()
+
+    for(let i = 0; i < 2; i++) {
+      for(let j = 0; j < this.users.length; j++) {
+        this.deal(this.users[j])
+      }
+    }
 
   }
 }
