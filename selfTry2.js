@@ -75,7 +75,7 @@ class Game {
     let card = this.deck.pop()
     user.cards.push(card)
   }
-  play() {
+  async play() {
     this.shuffle()
 
     for(let i = 0; i < 2; i++) {
@@ -83,6 +83,20 @@ class Game {
         this.deal(this.users[j])
       }
     }
+    this.display()
 
+    for (let i = 0; i < this.users.length; i++) {
+      await this.choice(this.users[i])
+    }
+    
+    this.display()
+
+    this.win()
+  }
+  display() {
+
+  }
+  choice() {
+    
   }
 }
