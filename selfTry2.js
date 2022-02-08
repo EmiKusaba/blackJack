@@ -94,9 +94,9 @@ class Game {
     this.win()
   }
   display() {
-
+    
   }
   choice() {
-    
+
   }
 }
