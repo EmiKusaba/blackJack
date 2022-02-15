@@ -9,6 +9,11 @@ class Card {
     this.number = number
     this.suit = suit
   }
+
+  name(){
+    return `${this.number} of ${this.suit}`
+  }
+
   score(aceIs11) {
     if (this.number === "Ace") {
       return aceIs11 ? 11 : 1
@@ -81,6 +86,7 @@ class Game {
       }
     }
   }
+
   shuffle() {
     let getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
@@ -95,6 +101,7 @@ class Game {
     this.deck = deck
 
   }
+
   deal(user) {
     let card = this.deck.pop()
     user.card.push(card)
@@ -103,7 +110,6 @@ class Game {
 
     this.shuffle()
 
-    let deck = []
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < this.users.length; j++) {
         this.deal(this.users[j])
@@ -131,6 +137,7 @@ class Game {
     })
 
   }
+  
   display() {
     console.log()
     for(let i = 0; i < this.users.length; i++){
@@ -145,7 +152,29 @@ class Game {
     }
   }
   win() {
+    let scores = []
+    for(let i = 0; i < this.user.length; i++) {
+      let score = user.score()
+      let user = this.user[i]
+      scores.push([user,score])
+    }
+    scores.sort((a, b) => {
+      if (a[0] > 21) {
+        return 1
+      } else if (b[0] > 21) {
+        return -1
+      }
+      return b[0] - a[0]
+    })
 
+    for (let i = 0; i < scores.length; i++) {
+      const score = scores[i][0]
+      const user = scores[i][1]
+      if (score !== scores[0][0]) {
+        break
+      }
+      console.log(`User ${user.name} wins!`)
+    }
   }
 }
 
