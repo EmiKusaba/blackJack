@@ -40,3 +40,14 @@ class User {
 }
 
 //game class
+
+class Game {
+  constructor(users) {
+    this.users = []
+    for(let i = 0; i < 2; i++){
+      this.users.push(new User(i))
+    }
+
+    
+  }
+}
