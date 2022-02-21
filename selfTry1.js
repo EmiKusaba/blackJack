@@ -30,13 +30,28 @@ class Card {
 //user class
 
 class User {
-  constructor(name, card) {
+  constructor(name, cards) {
     this.name = name
-    this.card = []
+    this.cards = []
   }
-  score(
-
-  )
+  score(){
+    let sums = [0]
+    for(let i = 0; i < this.cards.length; i++) {
+      const card = this.cards[i]
+        if (card.number === "Ace") {
+          sums = sums.concat(sums)
+          for (let j = 0; j < sums.length; j++) {
+            if (j < sums.length / 2) {
+              sums[j] += card.score(false)
+            } else {
+              sums[j] += card.score(true)
+            }
+          }
+        } else {
+          for (let j = 0; j < sums.length; j++) {
+            sums[j] += card.score()
+          }
+        }
 }
 
 //game class
@@ -48,6 +63,6 @@ class Game {
       this.users.push(new User(i))
     }
 
-    
+
   }
 }
