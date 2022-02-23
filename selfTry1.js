@@ -79,6 +79,14 @@ class Game {
     for(let i = 0; i < 2; i++){
     this.users.push(new User(i))
     }
+    this.deck = []
+    let suits = ["hearts", "diamonds", "spades", "clubs"]
+    for(let i = 0; i < suits.length; i++){
+      let numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+      for (let j = 0; j < numbers.length; i++) {
+        this.deck.push(new Card(suits[i],numbers[j]))
+      }
+    }
   }
 
   shuffle() {
