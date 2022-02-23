@@ -81,9 +81,27 @@ class Game {
     }
   }
 
-  shuffle(){
+  shuffle() {
+    const getRandomInt = (max) => {
+      return Math.floor(Math.random() * max)
+    }
+
+    let deck = []
+    const len = this.deck.length
+    for (let i = 0; i < len; i++) {
+      let index = getRandomInt(this.deck.length)
+      // let card = this.deck[index]
+      let card = this.deck.splice(index, 1)[0]
+      deck.push(card)
+    }
+    this.deck = deck
+  }
+  deal() {
 
   }
-  
+
+  play() {
+
+  }
   
 }
