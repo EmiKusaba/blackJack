@@ -74,17 +74,17 @@ class User {
 //Game
 
 class Game {
-  constructor(){
+  constructor() {
     this.users = []
-    for(let i = 0; i < 2; i++){
-    this.users.push(new User(i))
+    for (let i = 0; i < 2; i++) {
+      this.users.push(new User(i))
     }
     this.deck = []
     let suits = ["hearts", "diamonds", "spades", "clubs"]
-    for(let i = 0; i < suits.length; i++){
+    for (let i = 0; i < suits.length; i++) {
       let numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
       for (let j = 0; j < numbers.length; i++) {
-        this.deck.push(new Card(suits[i],numbers[j]))
+        this.deck.push(new Card(suits[i], numbers[j]))
       }
     }
   }
@@ -104,12 +104,46 @@ class Game {
     }
     this.deck = deck
   }
-  deal() {
+  deal(user) {
+    let card = this.deck.pop()
+    user.cards.push(card)
+  }
+
+  display() {
+    console.log()
+
+    for (let i = 0; i < this.users.length; i++) {
+      let user = this.userd[i]
+      console.log(`${user.name}'s card'`)
+      for (let j = 0; j < user.cards.length; j++) {
+        console.log(user.cards[j].name())
+      }
+      console.log(`score: ${user.score()}`)
+
+      console.log()
+    }
+  }
+
+  choice() {
 
   }
 
-  play() {
+  win() {
 
   }
-  
+
+  async play() {
+
+    this.shuffle()
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < this.users.length; j++) {
+        this.deal(this.users[j])
+      }
+
+      this.display()
+
+
+    }
+  }
+
 }
