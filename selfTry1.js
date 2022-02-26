@@ -113,7 +113,7 @@ class Game {
     console.log()
 
     for (let i = 0; i < this.users.length; i++) {
-      let user = this.userd[i]
+      let user = this.user[i]
       console.log(`${user.name}'s card'`)
       for (let j = 0; j < user.cards.length; j++) {
         console.log(user.cards[j].name())
@@ -124,12 +124,43 @@ class Game {
     }
   }
 
-  choice() {
-
+  choice(user) {
+    return new Promise((resolve) => {
+      rl.question(`User ${user.name} hit? [y/n]\n`, (ans) => {
+        if ("y" === ans) {
+          this.deal(user)
+        }
+        resolve()
+      })
+    })
   }
 
   win() {
+    let scores = []
 
+    for (let i = 0; i < this.users.length; i++) {
+      let user = this.users[i]
+      let score = user.score()
+      scores.push([user, score])
+    }
+    scores.sort((a, b) => {
+      if (a[1] > 21) {
+        return 1
+      } else if (b[1]> 21) {
+        return -1
+      }
+
+      return b[1] - a[1]
+    })
+
+    for(let i = 0; i < scores.length; i++) {
+      let user = scores[i][0]
+      let score = scores[i][1]
+      if(score !== scores[0][1]){
+        break
+      }
+      console.log(`${user.name} won`)
+    }
   }
 
   async play() {
@@ -139,11 +170,8 @@ class Game {
       for (let j = 0; j < this.users.length; j++) {
         this.deal(this.users[j])
       }
-
-      this.display()
-
-
     }
+    this.display()
   }
 
 }

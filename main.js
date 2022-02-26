@@ -149,7 +149,7 @@ class Game {
     for (let i = 0; i < this.users.length; i++) {
       let user = this.users[i]
       let score = user.score()
-      scores.push([user, score])
+      scores.push([score, user])
     }
 
     scores.sort((a, b) => {
