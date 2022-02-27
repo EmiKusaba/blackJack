@@ -83,7 +83,7 @@ class Game {
     let suits = ["hearts", "diamonds", "spades", "clubs"]
     for (let i = 0; i < suits.length; i++) {
       let numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-      for (let j = 0; j < numbers.length; i++) {
+      for (let j = 0; j < numbers.length; j++) {
         this.deck.push(new Card(suits[i], numbers[j]))
       }
     }
@@ -113,8 +113,8 @@ class Game {
     console.log()
 
     for (let i = 0; i < this.users.length; i++) {
-      let user = this.user[i]
-      console.log(`${user.name}'s card'`)
+      let user = this.users[i]
+      console.log(`Player ${user.name}'s cards:`)
       for (let j = 0; j < user.cards.length; j++) {
         console.log(user.cards[j].name())
       }
