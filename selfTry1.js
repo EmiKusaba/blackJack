@@ -172,6 +172,15 @@ class Game {
       }
     }
     this.display()
-  }
+    for(let i = 0; i < this.users.length; i++){
+      await this.choice(this.users[i])
+    }
+     
+    this.display()
 
+    this.win()
+    
+  }
 }
+let game = new Game
+game.play()
