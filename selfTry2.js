@@ -22,6 +22,19 @@ class Card {
     this.number = number
     this.suits = suits
   }
+  name(){
+    return `${this.number}of${this.suits}`
+  }
+
+  score(aceI11){
+    if(this.number === "Ace") {
+      return aceIs11 ? 11 : 1
+    }
+    if(this.number === "K" || this.number === "Q" || this.number === "J"){
+      return 10
+    }
+    return new Number(this.number)
+  }
 }
 
 //game
