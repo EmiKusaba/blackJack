@@ -39,3 +39,20 @@ class Card {
 
 //game
 
+class Game {
+  constructor() {
+    this.users = []
+    for(let i = 0; i < 2; i++) {
+      this.users.push(new User(i))
+    }
+
+    this.deck = []
+    let suits = ["hearts", "diamonds", "spades", "clubs"]
+    for(let i = 0; i < suits.length; i++) {
+      let numbers = [""]
+      for(let j = 0; j < numbers.length; j++){
+        this.deck.push(new Card(suits[i], numbers[j])
+      }
+    }
+  }
+}
