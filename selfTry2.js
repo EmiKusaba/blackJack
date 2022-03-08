@@ -45,14 +45,59 @@ class Game {
     for(let i = 0; i < 2; i++) {
       this.users.push(new User(i))
     }
-
     this.deck = []
     let suits = ["hearts", "diamonds", "spades", "clubs"]
     for(let i = 0; i < suits.length; i++) {
-      let numbers = [""]
-      for(let j = 0; j < numbers.length; j++){
-        this.deck.push(new Card(suits[i], numbers[j])
+      let numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+      for(let j = 0; j < numbers.length; j++) {
+        this.deck.push(new Card(suits[i], numbers[j]))
       }
     }
+  }
+  shuffle() {
+    let deck = []
+    const len = this.deck.length
+    let getRandomInt = (max) => {
+      return Math.floor(Math.random() * max);
+    }
+    for(let i = 0; i < len; i++) {
+      let index = getRandomInt(this.deck.length)
+      let card = this.deck.splice(index, 1)[0]
+      deck.push(card)
+    }
+    this.deck = deck
+  }
+
+  deal(user) {
+    let card = this.deck.pop()
+    user.cards.push(card)
+  }
+
+  display() {
+    console.log()
+
+    for(let i = 0; i < this.users.length; i ++) {
+      let user = this.users[i]
+      console.log(`User ${user.name}'s Cards'`)
+      for(let j = 0; j < user.cards.length; j++) {
+        console.log(`${user.cards[j].name()}`)
+      }
+      console.log(`score: ${user.score()}`)
+      
+      console.log()
+
+    }
+  }
+
+  choice() {
+
+  }
+
+  win() {
+
+  }
+
+  play() {
+
   }
 }
